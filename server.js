@@ -10,7 +10,7 @@ const numberOfPage= require('./helper/numberOfPage');
 
   const context = await browser.newContext();
   const page = await context.newPage();
-  const MainUrl = 'https://www.yellowpages.ae/search/car?field=bkeyword';
+  const MainUrl = 'https://www.yellowpages.ae/search/cloth?field=bkeyword';
   let companiesData = []; // Define here to avoid undefined error
 
   try {

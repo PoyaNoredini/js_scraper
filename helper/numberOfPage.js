@@ -28,9 +28,7 @@ async function numberOfPage(page) {
   } catch (error) {
     console.error('Error getting last page number:', error);
     return null;
-  } finally {
-    await browser.close();
-  }
+  } 
 };
 
 
