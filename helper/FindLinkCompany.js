@@ -1,7 +1,9 @@
-const extractPhoneNumber = require('./extract data/ExtractPhone');
+const extractPhoneNumber = require('./extract_data/ExtractPhone');
 const handlePopup = require('./handlePoupe'); // Corrected typo
-const extractBusinessHours = require('./extract data/Hours'); // Assuming you have this function
-const extractLocation = require('./extract data/extractLocation');
+const extractBusinessHours = require('./extract_data/Hours'); // Assuming you have this function
+const extractLocation = require('./extract_data/extractLocation');
+const extractSellerWebsite = require('./extract_data/linkWebsite')
+
 
 async function findLinkCompany(page, context) {
   const companiesData = [];
@@ -63,12 +65,14 @@ async function findLinkCompany(page, context) {
       const phoneNumber = await extractPhoneNumber(companyPage);
       const BusinessHours= await extractBusinessHours(companyPage); 
       const location = await extractLocation(companyPage);
+      const website = await extractSellerWebsite(companyPage);
 
       const companyData = {
         name: companyName,
         url: fullUrl,
         BusinessHours: BusinessHours,
         Location: location,
+        Website : website,
         phoneNumber: phoneNumber || 'Not found'
       };
 
@@ -94,6 +98,7 @@ async function findLinkCompany(page, context) {
     console.log(`   Phone: ${company.phoneNumber}`);
     console.log(`   Business Hours: ${company.BusinessHours || 'Not found'}`);
     console.log(`   Location: ${company.Location || 'Not found'}`);
+    console.log(`website:${company.Website}`);
     console.log(`   URL: ${company.url}`);
     console.log('');
   });
