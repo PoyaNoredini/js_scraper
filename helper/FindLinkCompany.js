@@ -3,6 +3,7 @@ const handlePopup = require('./handlePoupe'); // Corrected typo
 const extractBusinessHours = require('./extract_data/Hours'); // Assuming you have this function
 const extractLocation = require('./extract_data/extractLocation');
 const extractSellerWebsite = require('./extract_data/linkWebsite')
+const extractSocialMediaLinks = require('./extract_data/socailMedia');
 
 
 async function findLinkCompany(page, context) {
@@ -66,13 +67,14 @@ async function findLinkCompany(page, context) {
       const BusinessHours= await extractBusinessHours(companyPage); 
       const location = await extractLocation(companyPage);
       const website = await extractSellerWebsite(companyPage);
-
+      const social = await extractSocialMediaLinks(companyPage);
       const companyData = {
         name: companyName,
         url: fullUrl,
         BusinessHours: BusinessHours,
         Location: location,
         Website : website,
+        socialMedia: social,
         phoneNumber: phoneNumber || 'Not found'
       };
 
@@ -99,6 +101,7 @@ async function findLinkCompany(page, context) {
     console.log(`   Business Hours: ${company.BusinessHours || 'Not found'}`);
     console.log(`   Location: ${company.Location || 'Not found'}`);
     console.log(`website:${company.Website}`);
+    console.log(`socail media ${company.socialMedia}`);
     console.log(`   URL: ${company.url}`);
     console.log('');
   });
