@@ -1,5 +1,6 @@
 const extractPhoneNumber = require('./ExtractPhone');
 const handlePopup = require('./handlePoupe'); // Corrected typo
+const extractBusinessHours = require('./Hours'); // Assuming you have this function
 
 async function findLinkCompany(page, context) {
   const companiesData = [];
@@ -58,10 +59,11 @@ async function findLinkCompany(page, context) {
       await handlePopup(companyPage);
 
       const phoneNumber = await extractPhoneNumber(companyPage);
-
+      const BusinessHours= await extractBusinessHours(companyPage); 
       const companyData = {
         name: companyName,
         url: fullUrl,
+        BusinessHours: BusinessHours,
         phoneNumber: phoneNumber || 'Not found'
       };
 
@@ -85,6 +87,7 @@ async function findLinkCompany(page, context) {
   companiesData.forEach((company, index) => {
     console.log(`${index + 1}. ${company.name}`);
     console.log(`   Phone: ${company.phoneNumber}`);
+    console.log(`   Business Hours: ${company.BusinessHours || 'Not found'}`);
     console.log(`   URL: ${company.url}`);
     console.log('');
   });
