@@ -6,11 +6,11 @@ const extractSellerWebsite = require('./extract_data/linkWebsite')
 const extractSocialMediaLinks = require('./extract_data/socailMedia');
 
 
-async function findLinkCompany(page, context) {
+async function findLinkCompany(page, context ,timeout) {
   const companiesData = [];
-
+  
   console.log('Waiting for search results...');
-  await page.waitForSelector('a[title][href*="/sellers/"]', { timeout: 15000 });
+  await page.waitForSelector('a[title][href*="/sellers/"]', { timeout: timeout });
 
   const companyList = await page.evaluate(() => {
     let links = [];

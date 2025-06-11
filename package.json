@@ -13,6 +13,7 @@
     "playwright": "^1.52.0"
   },
   "dependencies": {
+    "dotenv": "^16.5.0",
     "node": "^22.16.0"
   }
 }

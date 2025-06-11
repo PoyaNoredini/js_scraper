@@ -1,13 +1,16 @@
 const { chromium } = require('playwright');
 const handlePopup = require('./helper/handlePoupe');
+const env = require('dotenv')
 const findLinkCompany = require('./helper/FindLinkCompany');
 const numberOfPage= require('./helper/numberOfPage');
+require('dotenv').config();
+
 (async () => {
   const browser = await chromium.launch({
     headless: false,
-    executablePath: 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe'
+    executablePath:  process.env.executablePath// Adjust path as needed
   });
-
+  const timeout = 60000; // Set a timeout for page operations
   const context = await browser.newContext();
   const page = await context.newPage();
   const MainUrl = 'https://www.yellowpages.ae/search/cloth?field=bkeyword';
@@ -18,7 +21,7 @@ const numberOfPage= require('./helper/numberOfPage');
     await page.goto(MainUrl, { waitUntil: 'networkidle', timeout: 60000 });
     await handlePopup(page);
     const total_Page=  await numberOfPage(page);
-    const result = await findLinkCompany(page, context); // Pass context
+    const result = await findLinkCompany(page, context , timeout); // Pass context
 
     if (result) companiesData = result; // Assign if not undefined
 
