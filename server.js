@@ -17,9 +17,20 @@ const numberOfPage= require('./helper/numberOfPage');
     console.log('Loading search page...');
     await page.goto(MainUrl, { waitUntil: 'networkidle', timeout: 60000 });
     await handlePopup(page);
-    await numberOfPage(page);
+    const total_Page=  await numberOfPage(page);
     const result = await findLinkCompany(page, context); // Pass context
+
     if (result) companiesData = result; // Assign if not undefined
+
+      for (let page_number = 2; page_number <= total_Page; page_number++) {
+      
+      let url = `https://www.yellowpages.ae/search/cloth?field=bkeyword&page=${page_number}`
+
+      await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
+      const result = await findLinkCompany(page, context); // Pass context
+      if (result) companiesData = result; // Assign if not undefined
+      
+    };
 
   
   } catch (error) {
