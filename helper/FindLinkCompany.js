@@ -1,7 +1,7 @@
-const extractPhoneNumber = require('./ExtractPhone');
+const extractPhoneNumber = require('./extract data/ExtractPhone');
 const handlePopup = require('./handlePoupe'); // Corrected typo
-const extractBusinessHours = require('./Hours'); // Assuming you have this function
-const extractLocation = require('./extractLocation');
+const extractBusinessHours = require('./extract data/Hours'); // Assuming you have this function
+const extractLocation = require('./extract data/extractLocation');
 
 async function findLinkCompany(page, context) {
   const companiesData = [];
