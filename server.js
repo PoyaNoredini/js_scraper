@@ -1,7 +1,7 @@
 const { chromium } = require('playwright');
 const handlePopup = require('./helper/handlePoupe');
 const findLinkCompany = require('./helper/FindLinkCompany');
-
+const numberOfPage= require('./helper/numberOfPage');
 (async () => {
   const browser = await chromium.launch({
     headless: false,
@@ -10,13 +10,14 @@ const findLinkCompany = require('./helper/FindLinkCompany');
 
   const context = await browser.newContext();
   const page = await context.newPage();
-  const MainUrl = 'https://www.yellowpages.ae/search/cloth?field=bkeyword';
+  const MainUrl = 'https://www.yellowpages.ae/search/car?field=bkeyword';
   let companiesData = []; // Define here to avoid undefined error
 
   try {
     console.log('Loading search page...');
     await page.goto(MainUrl, { waitUntil: 'networkidle', timeout: 60000 });
     await handlePopup(page);
+    await numberOfPage(page);
     const result = await findLinkCompany(page, context); // Pass context
     if (result) companiesData = result; // Assign if not undefined
 
