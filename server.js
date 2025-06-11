@@ -13,7 +13,7 @@ require('dotenv').config();
   const timeout = 60000; // Set a timeout for page operations
   const context = await browser.newContext();
   const page = await context.newPage();
-  const MainUrl = 'https://www.yellowpages.ae/search/cloth?field=bkeyword';
+  const MainUrl = process.env.MainUrl;
   let companiesData = []; // Define here to avoid undefined error
 
   try {
