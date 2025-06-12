@@ -52,11 +52,15 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
-      category_id: {
+      city:{
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      sub_category_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
-          model: 'categories',
+          model: 'sub_categories',
           key: 'id'
         }
       },
