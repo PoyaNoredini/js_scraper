@@ -72,74 +72,8 @@ async function extractSellerWebsite(page) {
     console.error('Error extracting seller website:', error.message);
     return 'Not found';
   }
-}
+};
 
-// Function to extract service area from the page
-async function extractServiceArea(page) {
-  console.log('Extracting service area...');
-  
-  try {
-    let serviceArea = null;
-
-    // Method 1: Look for "Service Area:" label
-    try {
-      const serviceElement = await page.waitForSelector('text=/Service Area:/', { timeout: 3000 });
-      const parentElement = await serviceElement.locator('..').first();
-      const serviceText = await parentElement.textContent();
-      serviceArea = serviceText.replace('Service Area:', '').trim();
-      console.log('Found service area with label method:', serviceArea);
-    } catch (e) {
-      console.log('Service area label method failed, trying alternatives...');
-    }
-
-    // Method 2: Look for city names near "Service" text
-    if (!serviceArea) {
-      try {
-        const serviceElements = await page.$$eval('*', elements => {
-          return elements
-            .filter(el => el.textContent && el.textContent.toLowerCase().includes('service'))
-            .map(el => el.textContent.trim())
-            .filter(text => 
-              text.includes('Sharjah') || 
-              text.includes('Dubai') || 
-              text.includes('Abu Dhabi') ||
-              text.includes('UAE')
-            );
-        });
-        
-        if (serviceElements.length > 0) {
-          serviceArea = serviceElements[0].replace(/.*service[^:]*:?\s*/i, '').trim();
-          console.log('Found service area with service text search:', serviceArea);
-        }
-      } catch (e) {
-        console.log('Service text search failed');
-      }
-    }
-
-    // Method 3: Default to location if service area not found specifically
-    if (!serviceArea || serviceArea === 'Not found') {
-      try {
-        const location = await extractLocation(page);
-        if (location && location !== 'Not found') {
-          // Extract city name from location
-          const cityMatch = location.match(/(Sharjah|Dubai|Abu Dhabi)/i);
-          if (cityMatch) {
-            serviceArea = cityMatch[1];
-            console.log('Found service area from location:', serviceArea);
-          }
-        }
-      } catch (e) {
-        console.log('Location fallback failed');
-      }
-    }
-
-    return serviceArea || 'Not found';
-
-  } catch (error) {
-    console.error('Error extracting service area:', error.message);
-    return 'Not found';
-  }
-}
 
 
 module.exports = extractSellerWebsite;

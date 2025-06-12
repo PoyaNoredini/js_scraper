@@ -4,6 +4,7 @@ const extractBusinessHours = require('./extract_data/Hours'); // Assuming you ha
 const extractLocation = require('./extract_data/extractLocation');
 const extractSellerWebsite = require('./extract_data/linkWebsite')
 const extractSocialMediaLinks = require('./extract_data/socailMedia');
+const extractServiceArea = require('./extract_data/serviceArea'); // Assuming you have this function
 
 
 async function findLinkCompany(page, context ,timeout) {
@@ -68,12 +69,16 @@ async function findLinkCompany(page, context ,timeout) {
       const location = await extractLocation(companyPage);
       const website = await extractSellerWebsite(companyPage);
       const social = await extractSocialMediaLinks(companyPage);
+      const serviceArea = await extractServiceArea(companyPage);
+
+
       const companyData = {
         name: companyName,
         url: fullUrl,
         BusinessHours: BusinessHours,
         Location: location,
         Website : website,
+        serviceArea: serviceArea.serviceArea || 'Not found',
         socialMedia: social,
         phoneNumber: phoneNumber || 'Not found'
       };
@@ -102,6 +107,7 @@ async function findLinkCompany(page, context ,timeout) {
     console.log(`   Location: ${company.Location || 'Not found'}`);
     console.log(`website:${company.Website}`);
     console.log(`socail media ${company.socialMedia}`);
+    console.log(`   Service Area: ${company.serviceArea}`);
     console.log(`   URL: ${company.url}`);
     console.log('');
   });
