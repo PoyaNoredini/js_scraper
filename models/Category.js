@@ -15,5 +15,8 @@ const Category = sequelize.define('Category', {
     tableName: 'categories',
     timestamps: true
 });
-
+Category.hasMany(require('./SubCategory'), {
+    foreignKey: 'categoryId',
+    as: 'subCategories'
+});
 module.exports = Category;

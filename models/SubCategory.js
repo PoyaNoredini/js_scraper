@@ -27,5 +27,14 @@ SubCategory.init({
   tableName: 'sub_categories',
   timestamps: true
 });
+// Add these associations
+SubCategory.belongsTo(require('./Category'), {
+    foreignKey: 'categoryId',
+    as: 'category'
+});
 
+SubCategory.hasMany(require('./CompanyYellow'), {
+    foreignKey: 'sub_category_id',
+    as: 'companies'
+});
 module.exports = SubCategory;
