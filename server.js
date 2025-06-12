@@ -7,13 +7,13 @@ require('dotenv').config();
 
 (async () => {
   const browser = await chromium.launch({
-    headless: false,
-    executablePath:  process.env.executablePath// Adjust path as needed
+    headless: true,
+    executablePath:  process.env.EXECUTABLEPATH// Adjust path as needed
   });
   const timeout = 60000; // Set a timeout for page operations
   const context = await browser.newContext();
   const page = await context.newPage();
-  const MainUrl = process.env.MainUrl;
+  const MainUrl = process.env.MAINURL;
   let companiesData = []; // Define here to avoid undefined error
 
   try {
