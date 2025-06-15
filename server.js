@@ -1,7 +1,7 @@
 const { chromium } = require('playwright');
 const handlePopup = require('./helper/handlePoupe');
 const env = require('dotenv')
-const findLinkCompany = require('./helper/FindLinkCompany');
+const findLinkCompany = require('./helper/extract_data/FindLinkCompany');
 const numberOfPage= require('./helper/extract_data/numberOfPage');
 require('dotenv').config();
 
