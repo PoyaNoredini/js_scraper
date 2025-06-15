@@ -18,26 +18,6 @@ async function extractSubcategory(page) {
       console.log('Subcategory:', cleanSubcategory);
     }
 
-    // // Return the subcategory (using the most reliable method)
-    // let finalSubcategory = null;
-    
-    // try {
-    //   const element = await page.locator('text=/Sub-Category:/').first();
-    //   const fullText = await element.textContent();
-    //   finalSubcategory = fullText.replace(/Sub-Category:\s*/i, '').trim();
-    // } catch (error) {
-    //   console.log('Primary method failed, trying alternative...');
-      
-    //   try {
-    //     const linkElement = await page.locator('a[href*="/subcategory/"]').first();
-    //     finalSubcategory = await linkElement.textContent();
-    //     finalSubcategory = finalSubcategory.trim();
-    //   } catch (error2) {
-    //     console.log('Alternative method also failed');
-    //   }
-    // }
-    // console.log('Final Subcategory:', finalSubcategory);
-    return cleanSubcategory;
 
 
   } catch (error) {
