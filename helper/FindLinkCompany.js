@@ -5,8 +5,9 @@ const extractLocation = require('./extract_data/extractLocation');
 const extractSellerWebsite = require('./extract_data/linkWebsite')
 const extractSocialMediaLinks = require('./extract_data/socailMedia');
 const extractServiceArea = require('./extract_data/serviceArea'); // Assuming you have this function
+const extractSubcategory = require('./extract_data/subCategory'); // Assuming you have this function
 
-
+const Url = process.env.URL;
 async function findLinkCompany(page, context ,timeout) {
   const companiesData = [];
   
@@ -39,7 +40,7 @@ async function findLinkCompany(page, context ,timeout) {
 
     return links.map(link => ({
       name: link.textContent.trim(),
-      url: link.href.startsWith('http') ? link.href : `https://www.yellowpages.ae${link.getAttribute('href')}`
+      url: link.href.startsWith('http') ? link.href : `${Url}${link.getAttribute('href')}`
     }));
   });
 
@@ -70,7 +71,7 @@ async function findLinkCompany(page, context ,timeout) {
       const website = await extractSellerWebsite(companyPage);
       const social = await extractSocialMediaLinks(companyPage);
       const serviceArea = await extractServiceArea(companyPage);
-
+      const subCategory = await extractSubcategory(companyPage);
 
       const companyData = {
         name: companyName,
@@ -80,6 +81,7 @@ async function findLinkCompany(page, context ,timeout) {
         Website : website,
         serviceArea: serviceArea.serviceArea || 'Not found',
         socialMedia: social,
+        subCategory: subCategory || 'Not found',
         phoneNumber: phoneNumber || 'Not found'
       };
 
@@ -108,6 +110,7 @@ async function findLinkCompany(page, context ,timeout) {
     console.log(`website:${company.Website}`);
     console.log(`socail media ${company.socialMedia}`);
     console.log(`   Service Area: ${company.serviceArea}`);
+    console.log(`   Sub-Category: ${company.subCategory}`);
     console.log(`   URL: ${company.url}`);
     console.log('');
   });

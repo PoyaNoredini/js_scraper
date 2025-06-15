@@ -5,9 +5,7 @@ async function extractServiceArea(page) {
     
     try {
 
-        // Method 1: Extract service area using the specific span selector
-        const serviceArea1 = await page.locator('span.ng-star-inserted[title="Sharjah"]').textContent();
-
+     
         // Method 2: Extract service area by finding the "Service Area:" label and getting next element
         const serviceArea2 = await page.evaluate(() => {
             // Find the element containing "Service Area:"
@@ -45,7 +43,7 @@ async function extractServiceArea(page) {
 
         
         // Return the extracted data
-        const result = serviceArea1 || serviceArea2 || serviceArea3;
+        const result = serviceArea2 || serviceArea3;
          console.log(`Extracted service area: ${result}`);
             return result;
     } catch (error) {

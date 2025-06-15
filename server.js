@@ -2,7 +2,7 @@ const { chromium } = require('playwright');
 const handlePopup = require('./helper/handlePoupe');
 const env = require('dotenv')
 const findLinkCompany = require('./helper/FindLinkCompany');
-const numberOfPage= require('./helper/numberOfPage');
+const numberOfPage= require('./helper/extract_data/numberOfPage');
 require('dotenv').config();
 
 (async () => {
@@ -26,8 +26,8 @@ require('dotenv').config();
     if (result) companiesData = result; // Assign if not undefined
 
       for (let page_number = 2; page_number <= total_Page; page_number++) {
-      
-      let url = `https://www.yellowpages.ae/search/cloth?field=bkeyword&page=${page_number}`
+
+      let url = `${MainUrl}&page=${page_number}`;
 
       await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
       const result = await findLinkCompany(page, context); // Pass context
