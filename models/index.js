@@ -1,10 +1,16 @@
+require('dotenv').config();
 const { Sequelize } = require('sequelize');
 
-// Replace with your MySQL database credentials
-const sequelize = new Sequelize('database_name', 'username', 'password', {
-  host: 'localhost',
-  dialect: 'mysql',
-});
+const sequelize = new Sequelize(
+  process.env.DB_NAME,       // "web_Scraper"
+  process.env.DB_USERNAME,   // "ubuntu"
+  process.env.DB_PASSWORD,   // "Ubuntu@1234!"
+  {
+    host: process.env.DB_HOST,  // "localhost"
+    dialect: 'mysql',
+    logging: false,
+  }
+);
 
 (async () => {
   try {

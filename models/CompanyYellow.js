@@ -1,6 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('./index');
-const Category = require('./Category');
+
 
 const CompanyYellow = sequelize.define('CompanyYellow', {
     id: {
@@ -67,12 +67,6 @@ const CompanyYellow = sequelize.define('CompanyYellow', {
 }, {
     tableName: 'company_yellows',
     timestamps: true
-});
-
-// Define the association
-CompanyYellow.belongsTo(Category, {
-  foreignKey: 'category_id',
-  as: 'category'
 });
 
 module.exports = CompanyYellow;
