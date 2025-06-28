@@ -56,7 +56,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
-      category:{
+      category_id:{
         type:Sequelize.INTEGER,
         allowNull: true,
         references: {

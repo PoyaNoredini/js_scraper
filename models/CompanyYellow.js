@@ -56,11 +56,11 @@ const CompanyYellow = sequelize.define('CompanyYellow', {
         type:DataTypes.STRING,
         allowNull: true
     },
-    sub_category_id: {
+    category_id: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-            model: 'sub_categories',
+            model: 'categories',
             key: 'id'
         }
     }
@@ -70,9 +70,9 @@ const CompanyYellow = sequelize.define('CompanyYellow', {
 });
 
 // Define the association
-CompanyYellow.belongsTo(SubCategory, {
-    foreignKey: 'sub_category_id',
-    as: 'sub_category'
+CompanyYellow.belongsTo(Category, {
+  foreignKey: 'category_id',
+  as: 'category'
 });
 
 module.exports = CompanyYellow;
