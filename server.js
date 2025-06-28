@@ -1,6 +1,12 @@
 const dotenv = require('dotenv');
 dotenv.config({ path: './.env' });
 
+
+
+const sequelize = require('./models/index'); // Load and connect to DB
+require('./models/associations');            // Load all relationships
+
+
 const app = require('./app');
 
 const port = process.env.PORT || 3000;
