@@ -3,7 +3,7 @@ const router = express.Router();
 const runBot = require('../RunBot'); // Import your bot function
 require('dotenv').config();
 
-router.post('/run-bot', async (req, res) => {
+router.post('/', async (req, res) => {
   const { keyword } = req.body;
 
   if (!keyword) {
