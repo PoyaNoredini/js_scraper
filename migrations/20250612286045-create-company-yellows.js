@@ -56,14 +56,19 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
-      sub_category_id: {
-        type: Sequelize.INTEGER,
+      category:{
+        type:Sequelize.INTEGER,
         allowNull: true,
         references: {
-          model: 'sub_categories',
+          model: 'categories',
           key: 'id'
         }
       },
+      sub_category: {
+        type: Sequelize.STRING,
+        allowNull: true,
+  
+          },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false
