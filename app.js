@@ -9,6 +9,7 @@ const helmet = require('helmet');
 // route
 const searchRoutes = require('./routes/DynamicSearch');
 const usersRouter = require('./routes/userRoutes');
+const categoryRoutes = require('./routes/category');
 
 const app = express();
 
@@ -37,8 +38,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // API routes
 app.use('/users', usersRouter);
-
-app.use('/api', searchRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/run-bot', searchRoutes);
 // 404 handler for unmatched routes
 app.use((req, res, next) => {
   next(createError(404, 'Route not found'));
