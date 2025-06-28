@@ -58,11 +58,10 @@ exports.login = catchAsync(async (req, res) => {
       return res.status(401).json({ error: 'Invalid username or password' });
     }
 
+
     createSendToken(user , 200 , res); 
-    res.status(200).json({ token, user });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
-})
-
+});
 
