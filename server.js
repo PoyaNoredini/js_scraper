@@ -23,7 +23,8 @@ for (const iface of Object.values(networkInterfaces)) {
 app.listen(port, () => {
   console.log(`✅ Server is running: http://${localIp}:${port}`)
 });
-console.log(listEndpoints(app));
+// for see list of api 
+// console.log(listEndpoints(app));
 
 process.on('unhandledRejection', err => {
   console.log('UNHANDLED REJECTION! Shutting down...');
