@@ -1,48 +1,48 @@
 const { chromium } = require('playwright');
 const handlePopup = require('./helper/handlePoupe');
-const env = require('dotenv')
 const findLinkCompany = require('./helper/extract_data/FindLinkCompany');
-const numberOfPage= require('./helper/extract_data/numberOfPage');
+const numberOfPage = require('./helper/extract_data/numberOfPage');
 require('dotenv').config();
 
+module.exports = async function runBot(keyword) {
+  const baseURL = process.env.MAINURL;
+  const searchURL = `${baseURL}/${encodeURIComponent(keyword)}?field=bkeyword`;
 
-(async () => {
   const browser = await chromium.launch({
     headless: true,
-    executablePath:  process.env.EXECUTABLEPATH// Adjust path as needed
+    executablePath: process.env.EXECUTABLEPATH,
   });
-  const timeout = 60000; // Set a timeout for page operations
+
   const context = await browser.newContext();
   const page = await context.newPage();
-  const MainUrl = process.env.MAINURL;
-  let companiesData = []; // Define here to avoid undefined error
+
+  let companiesData = [];
 
   try {
-    console.log('Loading search page...');
-    await page.goto(MainUrl, { waitUntil: 'networkidle', timeout: 60000 });
+    console.log('Navigating to:', searchURL);
+    await page.goto(searchURL, { waitUntil: 'networkidle', timeout: 60000 });
     await handlePopup(page);
-    const total_Page=  await numberOfPage(page);
-    const result = await findLinkCompany(page, context , timeout); // Pass context
 
-    if (result) companiesData = result; // Assign if not undefined
+    const total_Page = await numberOfPage(page);
 
-      for (let page_number = 2; page_number <= total_Page; page_number++) {
+    const firstResult = await findLinkCompany(page, context);
+    if (firstResult) companiesData.push(...firstResult);
 
-      let url = `${MainUrl}&page=${page_number}`;
+    for (let page_number = 2; page_number <= total_Page; page_number++) {
+      let pageURL = `${searchURL}&page=${page_number}`;
+      await page.goto(pageURL, { waitUntil: 'networkidle', timeout: 60000 });
 
-      await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
-      const result = await findLinkCompany(page, context); // Pass context
-      if (result) companiesData = result; // Assign if not undefined
-      
-    };
-
-  
-  } catch (error) {
-    console.error('Error occurred:', error.message);
-  } finally {
-    if (companiesData.length > 0) {
-      console.log(`\nExtracted data for ${companiesData.length} companies`);
+      const result = await findLinkCompany(page, context);
+      if (result) companiesData.push(...result);
     }
-    // await browser.close(); // Uncomment when done debugging
+
+    console.log(`✅ Finished scraping. Found ${companiesData.length} companies.`);
+    // You can optionally save to file or database here
+
+  } catch (err) {
+    console.error('❌ Bot error:', err.message);
+    throw err;
+  } finally {
+    await browser.close();
   }
-})();
+};
