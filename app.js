@@ -8,7 +8,8 @@ const helmet = require('helmet');
 
 // route
 const searchRoutes = require('./routes/DynamicSearch');
-const usersRouter = require('./routes/userRoutes');
+const authRouter = require('./routes/authRoutes');
+const authMiddleware = require('./middlewares/auth');
 const categoryRoutes = require('./routes/category');
 
 const app = express();
@@ -33,11 +34,12 @@ app.use('/api', limiter);
 app.use(express.json());
 app.use(cookieParser());
 
+// API routes
+app.use('/auth', authRouter);
 // Serve static files (optional)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// API routes
-app.use('/users', usersRouter);
+app.use(authMiddleware);   // Apply auth middleware to all routes after authentication routes
 app.use('/api/categories', categoryRoutes);
 app.use('/api/run-bot', searchRoutes);
 // 404 handler for unmatched routes
