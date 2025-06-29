@@ -13,11 +13,13 @@ const { category_id } = req.body;
   try {
 
         // Validate and load category from DB
-    const category = await Category.findById(category_id);
+    const category = await Category.findByPk(category_id);
     if (!category) {
       return res.status(404).json({ error: 'Category not found' });
     }
+    
     const keyword = category.name;
+    // console.log(`Running bot for category: ${keyword}`);
     await runBot(keyword); // Pass the keyword to the bot
     // You can now use category data as needed
     // Example: await runBot(category.keyword)
