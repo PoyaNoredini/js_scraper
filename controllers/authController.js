@@ -65,3 +65,17 @@ exports.login = catchAsync(async (req, res) => {
   }
 });
 
+exports.adminRegister = catchAsync(async (req, res) => {
+  try {
+    const newUser = await User.create({
+      user_name: req.body.user_name,
+      password: req.body.password,
+      passwordConfirm: req.body.passwordConfirm,
+      type: 'admin' // Set user type to admin
+    });
+    createSendToken(newUser , 201 , res);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+

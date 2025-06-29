@@ -9,7 +9,7 @@ const helmet = require('helmet');
 // route
 const searchRoutes = require('./routes/DynamicSearch');
 const authRouter = require('./routes/authRoutes');
-const authMiddleware = require('./middlewares/auth');
+const authMiddleware = require('./middlewares/authMiddleware');
 const categoryRoutes = require('./routes/category');
 
 const app = express();
