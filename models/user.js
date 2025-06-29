@@ -15,6 +15,11 @@ User.init(
       primaryKey: true,
       autoIncrement: true
     },
+    type: {
+      type: DataTypes.ENUM('admin', 'user'),
+      allowNull: false,
+      defaultValue: 'user',
+    },
     user_name: {
       type: DataTypes.STRING,
       allowNull: false,
