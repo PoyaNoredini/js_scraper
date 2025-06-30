@@ -1,4 +1,5 @@
 const { chromium } = require('playwright');
+const validateLength = require('../../validator/validateLength');
 
 async function extractServiceArea(page) {
 
@@ -45,6 +46,7 @@ async function extractServiceArea(page) {
         // Return the extracted data
         const result = serviceArea2 || serviceArea3;
          console.log(`Extracted service area: ${result}`);
+            result = validateLength(result, 200);
             return result;
     } catch (error) {
         console.error('Error extracting service area:', error);
