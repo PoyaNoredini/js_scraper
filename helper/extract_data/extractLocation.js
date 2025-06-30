@@ -1,4 +1,4 @@
-
+const validateLength = require('../../validator/validateLength'); 
 // Function to extract location/address from the page
 async function extractLocation(page) {
   try {
@@ -56,6 +56,8 @@ async function extractLocation(page) {
 
     if (location) {
       console.log(location);
+      // Validate length of the location string
+      location = validateLength(location, 200);
       return location;
     } else {
       return 'Not found';
