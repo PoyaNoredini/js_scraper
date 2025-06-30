@@ -1,3 +1,5 @@
+const validateLength = require('../../validator/validateLength');
+
 // Function to extract business hours from the page
 async function extractBusinessHours(page) {
   try {
@@ -40,6 +42,9 @@ async function extractBusinessHours(page) {
 
     if (businessHours) {
       console.log(businessHours);
+      // Validate length of the business hours string
+      businessHours = validateLength(businessHours, 200);
+      // Return the validated business hours
       return businessHours;
     } else {
       return 'Not found';
