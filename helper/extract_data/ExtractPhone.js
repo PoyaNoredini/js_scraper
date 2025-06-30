@@ -1,4 +1,4 @@
-
+const validateLength = require('../../validator/validateLength');
 // Function to extract phone number from the page
 async function extractPhoneNumber(page) {
   try {
@@ -83,6 +83,7 @@ async function extractPhoneNumber(page) {
 
     // Final output
     if (phone) {
+      phone = validateLength(phone, 20); // Validate length of the phone number
       return phone;
     } else {
       return null;
@@ -95,4 +96,3 @@ async function extractPhoneNumber(page) {
 }
 
 module.exports = extractPhoneNumber;
-

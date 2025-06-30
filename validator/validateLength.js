@@ -4,7 +4,7 @@
  * @param {number} minLength - Minimum required length (default: 100)
  * @returns {string|null} - Returns data if valid, otherwise null
  */
-function validateLength(data, maxLength = 200) {
+function validateLength(data, maxLength) {
   if (data && data.trim().length <= maxLength) {
     return data.trim();
   }
