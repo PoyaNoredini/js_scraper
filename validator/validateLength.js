@@ -11,6 +11,4 @@ function validateLength(data, maxLength) {
   return null;
 }
 
-module.exports = {
-  validateLength
-};
+module.exports = validateLength;
