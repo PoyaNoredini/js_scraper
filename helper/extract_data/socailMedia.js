@@ -2,15 +2,15 @@ const validateLength = require('../../validator/validateLength');
 
 async function extractSocialMediaLinks(page) {
   try {
-    const socialLinks = {};
+    const socialLinks = [];
 
     // Facebook
     try {
       const facebookLinks = await page.$$eval('a[href*="facebook"]', links =>
         links.map(link => link.href).filter(href => href.includes('facebook.com'))
       );
-      const fb = validateLength(facebookLinks[0]);
-      if (fb) socialLinks.facebook = fb;
+      const fb = validateLength(facebookLinks[0], 200);
+      if (fb) socialLinks[0] = fb;
     } catch (_) {}
 
     // Instagram
@@ -18,8 +18,8 @@ async function extractSocialMediaLinks(page) {
       const instagramLinks = await page.$$eval('a[href*="instagram"]', links =>
         links.map(link => link.href).filter(href => href.includes('instagram.com'))
       );
-      const ig = validateLength(instagramLinks[0]);
-      if (ig) socialLinks.instagram = ig;
+      const ig = validateLength(instagramLinks[0], 200);
+      if (ig) socialLinks[1] = ig;
     } catch (_) {}
 
     // Twitter / X
@@ -27,8 +27,8 @@ async function extractSocialMediaLinks(page) {
       const twitterLinks = await page.$$eval('a[href*="twitter"], a[href*="x.com"]', links =>
         links.map(link => link.href).filter(href => href.includes('twitter.com') || href.includes('x.com'))
       );
-      const tw = validateLength(twitterLinks[0]);
-      if (tw) socialLinks.twitter = tw;
+      const tw = validateLength(twitterLinks[0], 200);
+      if (tw) socialLinks[2] = tw;
     } catch (_) {}
 
     // LinkedIn
@@ -36,8 +36,8 @@ async function extractSocialMediaLinks(page) {
       const linkedinLinks = await page.$$eval('a[href*="linkedin"]', links =>
         links.map(link => link.href).filter(href => href.includes('linkedin.com'))
       );
-      const ln = validateLength(linkedinLinks[0]);
-      if (ln) socialLinks.linkedin = ln;
+      const ln = validateLength(linkedinLinks[0],200);
+      if (ln) socialLinks[3] = ln;
     } catch (_) {}
 
     // WhatsApp
@@ -45,8 +45,8 @@ async function extractSocialMediaLinks(page) {
       const whatsappLinks = await page.$$eval('a[href*="whatsapp"], a[href*="wa.me"]', links =>
         links.map(link => link.href).filter(href => href.includes('whatsapp') || href.includes('wa.me'))
       );
-      const wa = validateLength(whatsappLinks[0]);
-      if (wa) socialLinks.whatsapp = wa;
+      const wa = validateLength(whatsappLinks[0],200);
+      if (wa) socialLinks[4] = wa;
     } catch (_) {}
 
     if (Object.keys(socialLinks).length > 0) {
