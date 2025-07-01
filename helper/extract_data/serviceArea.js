@@ -44,7 +44,7 @@ async function extractServiceArea(page) {
 
         
         // Return the extracted data
-        const result = serviceArea2 || serviceArea3;
+        let result = serviceArea2 || serviceArea3;
          console.log(`Extracted service area: ${result}`);
             result = validateLength(result, 200);
             return result;

@@ -10,8 +10,10 @@ async function extractSubcategory(page) {
       const subcategoryText = await subcategoryContainer.textContent();
       const cleanSubcategory = subcategoryText.replace(/Sub-Category:\s*/i, '').trim();
       console.log('Subcategory:', cleanSubcategory);
-    }
-
+      return cleanSubcategory;
+      }
+    return null;
+    
   } catch (error) {
     console.error('Error extracting subcategory:', error);
     return null;

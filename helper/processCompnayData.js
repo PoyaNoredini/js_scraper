@@ -43,14 +43,15 @@ async function processSingleCompany(company, context, index, total) {
       BusinessHours: BusinessHours,
       Location: location,
       Website: website,
-      serviceArea: serviceArea?.serviceArea || 'Not found',
+      serviceArea: serviceArea || 'Not found',
       socialMedia: social,
       subCategory: subCategory || 'Not found',
       phoneNumber: phoneNumber || 'Not found'
     };
 
     console.log(`Phone: ${phoneNumber || 'Not found'}`);
-
+    console.log(companyData);
+    
     await companyPage.close();
 
     // Add delay between requests
