@@ -43,9 +43,10 @@ async function extractCompanyLinks(page) {
  * @param {Object} page - Playwright page object
  * @param {Object} context - Browser context
  * @param {number} timeout - Timeout for operations
+ * @param {Object} options - Options to pass to processAllCompanies (optional)
  * @returns {Array} - Array of processed company data
  */
-async function findLinkCompany(page, context, timeout = 60000) {
+async function findLinkCompany(page, context, timeout = 60000, options = {}) {
   try {
     console.log('Waiting for search results...');
     await page.waitForSelector('a[title][href*="/sellers/"]', { timeout: timeout });
@@ -57,8 +58,8 @@ async function findLinkCompany(page, context, timeout = 60000) {
       return [];
     }
 
-    // Process all companies using the separated function
-    const companiesData = await processAllCompanies(companyList, context);
+    // Process all companies using the separated function with options
+    const companiesData = await processAllCompanies(companyList, context, options);
 
     // Display results
     displayResults(companiesData);

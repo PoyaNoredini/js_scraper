@@ -6,7 +6,6 @@ async function extractServiceArea(page) {
     
     try {
 
-     
         // Method 2: Extract service area by finding the "Service Area:" label and getting next element
         const serviceArea2 = await page.evaluate(() => {
             // Find the element containing "Service Area:"
