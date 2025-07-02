@@ -6,6 +6,7 @@ const extractSellerWebsite = require('./extract_data/linkWebsite');
 const extractSocialMediaLinks = require('./extract_data/socailMedia');
 const extractServiceArea = require('./extract_data/serviceArea');
 const extractSubcategory = require('./extract_data/subCategory');
+const { saveCompanyData } = require('./SaveData');
 
 /**
  * Process a single company's data by extracting all relevant information
@@ -56,6 +57,10 @@ async function processSingleCompany(company, context, index, total) {
 
     // Add delay between requests
     await new Promise(resolve => setTimeout(resolve, 2000));
+
+    if (companyData) {
+      await saveCompanyData(companyData);
+    }
 
     return companyData;
 
