@@ -63,6 +63,10 @@ const CompanyYellow = sequelize.define('CompanyYellow', {
             model: 'categories',
             key: 'id'
         }
+    },
+    sub_category: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
 }, {
     tableName: 'company_yellows',
