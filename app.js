@@ -11,7 +11,7 @@ const searchRoutes = require('./routes/DynamicSearch');
 const authRouter = require('./routes/authRoutes');
 const authMiddleware = require('./middlewares/authMiddleware');
 const categoryRoutes = require('./routes/category');
-
+const exportData= require('./routes/exportData')
 const app = express();
 
 // Set security HTTP headers
@@ -42,6 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(authMiddleware);   // Apply auth middleware to all routes after authentication routes
 app.use('/api/categories', categoryRoutes);
 app.use('/api/run-bot', searchRoutes);
+app.use('/api/export-data',exportData);
 // 404 handler for unmatched routes
 app.use((req, res, next) => {
   next(createError(404, 'Route not found'));
