@@ -59,7 +59,7 @@ async function findLinkCompany(page, context, timeout = 60000, options = {}) {
     }
 
     // Process all companies using the separated function with options
-    const companiesData = await processAllCompanies(companyList, context, options);
+    const companiesData = await processAllCompanies(companyList, context, options.category_id);
 
     // Display results
     displayResults(companiesData);

@@ -4,7 +4,7 @@ const findLinkCompany = require('./helper/extract_data/FindLinkCompany');
 const numberOfPage = require('./helper/extract_data/numberOfPage');
 require('dotenv').config();
 
-module.exports = async function runBot(keyword) {
+module.exports = async function runBot(keyword, category_id) {
   const baseURL = process.env.MAINURL;
   const searchURL = `${baseURL}/${encodeURIComponent(keyword)}?field=bkeyword`;
 
@@ -25,14 +25,14 @@ module.exports = async function runBot(keyword) {
 
     const total_Page = await numberOfPage(page);
 
-    const firstResult = await findLinkCompany(page, context);
+    const firstResult = await findLinkCompany(page, context, 60000, { category_id });
     if (firstResult) companiesData.push(...firstResult);
 
     for (let page_number = 2; page_number <= total_Page; page_number++) {
       let pageURL = `${searchURL}&page=${page_number}`;
       await page.goto(pageURL, { waitUntil: 'networkidle', timeout: 60000 });
 
-      const result = await findLinkCompany(page, context);
+      const result = await findLinkCompany(page, context, 60000, { category_id });
       if (result) companiesData.push(...result);
     }
 

@@ -14,9 +14,10 @@ const { saveCompanyData } = require('./SaveData');
  * @param {Object} context - Browser context for creating new pages
  * @param {number} index - Current company index (for logging)
  * @param {number} total - Total number of companies (for logging)
+ * @param {string|number} category_id - Category ID to associate with the company
  * @returns {Object|null} - Company data object or null if error
  */
-async function processSingleCompany(company, context, index, total) {
+async function processSingleCompany(company, context, index, total, category_id) {
   try {
     const { name: companyName, url: fullUrl } = company;
 
@@ -47,7 +48,8 @@ async function processSingleCompany(company, context, index, total) {
       serviceArea: serviceArea || 'Not found',
       socialMedia: social,
       subCategory: subCategory || 'Not found',
-      phoneNumber: phoneNumber || 'Not found'
+      phoneNumber: phoneNumber || 'Not found',
+      category_id: category_id
     };
 
     console.log(`Phone: ${phoneNumber || 'Not found'}`);
@@ -74,15 +76,16 @@ async function processSingleCompany(company, context, index, total) {
  * Process all companies in the list
  * @param {Array} companyList - Array of company objects
  * @param {Object} context - Browser context
+ * @param {string|number} category_id - Category ID to associate with each company
  * @returns {Array} - Array of processed company data
  */
-async function processAllCompanies(companyList, context) {
+async function processAllCompanies(companyList, context, category_id) {
   const companiesData = [];
   
   console.log(`Found ${companyList.length} companies to process`);
 
   for (let i = 0; i < companyList.length; i++) {
-    const companyData = await processSingleCompany(companyList[i], context, i, companyList.length);
+    const companyData = await processSingleCompany(companyList[i], context, i, companyList.length, category_id);
     
     if (companyData) {
       companiesData.push(companyData);

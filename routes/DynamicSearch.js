@@ -20,7 +20,7 @@ const { category_id } = req.body;
     
     const keyword = category.name;
     // console.log(`Running bot for category: ${keyword}`);
-    await runBot(keyword); // Pass the keyword to the bot
+    await runBot(keyword, category_id); // Pass the keyword and category_id to the bot
     // You can now use category data as needed
     // Example: await runBot(category.keyword)
     return res.json({ message: 'Bot started successfully.' });
