@@ -11,4 +11,7 @@ router.get('/', categoryController.listCategories);
 // DELETE /api/categories/:id
 router.delete('/:id', categoryController.deleteCategory);
 
+// GET /api/categories/active
+router.get('/active', categoryController.listOnlyActiveCategories);
+
 module.exports = router;
